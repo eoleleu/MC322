@@ -1,3 +1,6 @@
+
+
+
 public class Cliente {
     private String nome;
     private String cpf;
@@ -8,25 +11,79 @@ public class Cliente {
     public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco){
         this.nome = nome;
         this.cpf = cpf;
+
         this.dataNascimento = dataNascimento;
         this.idade = idade;
         this.endereco = endereco;
     }
-    public void validarCPF(){
+    public boolean validarCPF(){
+        int cont=10, soma=0, verificador =1, num,tamanhoCPF=0,cont_num_iguais=0;
+
         cpf = cpf.replaceAll("[^0-9]", "");
 
-        int tamanhoCPF=0;
         for(int i=0;i<cpf.length();i++){
             tamanhoCPF = tamanhoCPF +1;
+            if(cpf.charAt(i) == cpf.charAt(0)){
+                cont_num_iguais+=1;
+            }
         }
+        if(tamanhoCPF ==11){
+            for(int i=0;i<9;i++){
+                num = Character.getNumericValue(cpf.charAt(i));
+                soma = soma + num*cont;
+                cont-=1;
+            }
+            int resto = soma%11;
+            int digito = 11 - resto;
+
+            if(resto < 2){
+                if(cpf.charAt(9)!='0')
+                    verificador =0;
+            } else{
+                if(digito != Character.getNumericValue(cpf.charAt(9))){
+                    verificador =0;
+                }
+
+            }
+            cont =11;
+            soma =0;
+            for(int i=0;i<10;i++){
+                num = Character.getNumericValue(cpf.charAt(i));
+                soma = soma + num*cont;
+                cont-=1;
+            }
+            resto = soma%11;
+            digito = 11-resto;
+            if(resto<2){
+                if(cpf.charAt(10)!='0'){
+                    verificador=0;
+                }
+            } else {
+                if(digito != Character.getNumericValue(cpf.charAt(10))){
+                    verificador =0;
+                }
+            }
+//            System.out.println(soma%11);
+//            return true;
+        } else {
+            verificador =0;
+        }
+
+        if(verificador==1 && cont_num_iguais!= 11){
+            return true;
+        } else {
+            return false;
+        }
+
+
+//        System.out.printf("%c\n", cpf.charAt(0));
+//        char a = cpf.charAt(0);
+//        int num = Integer.parseInt(String.valueOf(a));
+
+
         //System.out.println(tamanhoCPF);
     }
-    public String getNome(){
-        return nome;
-    }
-    public void setNome(String nome){
-        this.nome = nome;
-    }
+
     public String getCpf(){
         return cpf;
     }
@@ -50,5 +107,13 @@ public class Cliente {
     }
     public void setEndereco(String endereco){
         this.endereco = endereco;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
