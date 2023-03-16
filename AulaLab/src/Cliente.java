@@ -1,6 +1,3 @@
-
-
-
 public class Cliente {
     private String nome;
     private String cpf;
@@ -16,6 +13,10 @@ public class Cliente {
         this.idade = idade;
         this.endereco = endereco;
     }
+
+    //O método validarCPF verifica se todos os dígitos são semelhantes, além
+    // disso calcular se o CPF de fato é válido calculando os dígitos finais.
+    // Como também retira do CPF tudo aqui que não for número.
     public boolean validarCPF(){
         int cont=10, soma=0, verificador =1, num,tamanhoCPF=0,cont_num_iguais=0;
 
@@ -63,8 +64,7 @@ public class Cliente {
                     verificador =0;
                 }
             }
-//            System.out.println(soma%11);
-//            return true;
+
         } else {
             verificador =0;
         }
@@ -76,12 +76,7 @@ public class Cliente {
         }
 
 
-//        System.out.printf("%c\n", cpf.charAt(0));
-//        char a = cpf.charAt(0);
-//        int num = Integer.parseInt(String.valueOf(a));
 
-
-        //System.out.println(tamanhoCPF);
     }
 
     public String getCpf(){

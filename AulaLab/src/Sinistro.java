@@ -10,6 +10,7 @@ public class Sinistro {
         id = gerarID();
     }
 
+    //O método retorna um número inteiro aleatório de 0 até 99999.
     public int gerarID(){
         Random gerador = new Random();
         return gerador.nextInt(99999);
