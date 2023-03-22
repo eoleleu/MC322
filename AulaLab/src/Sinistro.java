@@ -33,4 +33,8 @@ public class Sinistro {
     public void setEndereco(String endereco){
         this.endereco = endereco;
     }
+    public String toString(){
+        return String.format("ID: %d,\nData: %s,\nEndereço: %s,\n", id, data, endereco);
+    }
+
 }

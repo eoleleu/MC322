@@ -37,4 +37,9 @@ public class Seguradora {
         this.email = email;
     }
 
+    public String toString(){
+
+        return String.format("Nome: %s,\nTelefone: %s,\nEmail: %s,\nEndereço: %s,\n", nome, telefone, email, endereco);
+    }
+
 }

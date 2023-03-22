@@ -27,4 +27,7 @@ public class Veiculo {
     public void setModelo(String modelo){
         this.modelo = modelo;
     }
+    public String toString(){
+        return String.format("Placa: %s,\nMarca: %s,\nModelo: %s,\n", placa, marca, modelo);
+    }
 }
