@@ -1,86 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private String nome;
-    private String cpf;
+    private String educacao;
     private String dataNascimento;
     private int idade;
     private String endereco;
+    private String genero;
+    private String classeEconomica;
+    public List<Veiculo> listaVeiculos = new ArrayList<Veiculo>();
 
-    public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco){
+    public Cliente(String nome, String dataNascimento, int idade, String endereco, String genero, String classeEconomica){
         this.nome = nome;
-        this.cpf = cpf;
-
         this.dataNascimento = dataNascimento;
         this.idade = idade;
         this.endereco = endereco;
+        this.genero = genero;
+        this.classeEconomica = classeEconomica;
     }
 
     //O método validarCPF verifica se todos os dígitos são semelhantes, além
     // disso, calcular se o CPF de fato é válido calculando os dígitos finais.
     // Como também retira do CPF tudo aquilo que não for número.
-    public boolean validarCPF(){
-        int cont=10, soma=0, verificador =1, num,tamanhoCPF=0,cont_num_iguais=0;
 
-        cpf = cpf.replaceAll("[^0-9]", "");
-
-        for (int i=0;i<cpf.length();i++){
-            tamanhoCPF = tamanhoCPF +1;
-            if (cpf.charAt(i) == cpf.charAt(0)){
-                cont_num_iguais+=1;
-            }
-        }
-        if (tamanhoCPF ==11){
-            for (int i=0;i<9;i++){
-                num = Character.getNumericValue(cpf.charAt(i));
-                soma = soma + num*cont;
-                cont-=1;
-            }
-            int resto = soma%11;
-            int digito = 11 - resto;
-
-            if (resto < 2){
-                if (cpf.charAt(9)!='0')
-                    verificador =0;
-            } else{
-                if (digito != Character.getNumericValue(cpf.charAt(9))){
-                    verificador =0;
-                }
-
-            }
-            cont =11;
-            soma =0;
-            for (int i=0;i<10;i++){
-                num = Character.getNumericValue(cpf.charAt(i));
-                soma = soma + num*cont;
-                cont-=1;
-            }
-            resto = soma%11;
-            digito = 11-resto;
-            if (resto<2){
-                if (cpf.charAt(10)!='0'){
-                    verificador=0;
-                }
-            } else {
-                if (digito != Character.getNumericValue(cpf.charAt(10))){
-                    verificador =0;
-                }
-            }
-        } else {
-            verificador =0;
-        }
-
-        if(verificador==1 && cont_num_iguais!= 11){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public String getCpf(){
-        return cpf;
-    }
-    public void setCpf(String cpf){
-        this.cpf = cpf;
-    }
     public String getDataNascimento(){
         return dataNascimento;
     }
@@ -107,8 +50,44 @@ public class Cliente {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    public String getEducacao() {
+        return educacao;
+    }
+
+    public void setEducacao(String educacao) {
+        this.educacao = educacao;
+    }
     public String toString(){
 
-        return String.format("Nome: %s,\nCPF: %s,\nData de Nascimento: %s,\nIdade: %d,\nEndereço: %s\n", nome, cpf, dataNascimento, idade, endereco);
+        return String.format("Nome: %s,\nCPF: %s,\nData de Nascimento: %s,\nIdade: %d,\nEndereço: %s\n", nome, dataNascimento, idade, endereco);
     }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getClasseEconomica() {
+        return classeEconomica;
+    }
+
+    public void setClasseEconomica(String classeEconomica) {
+        this.classeEconomica = classeEconomica;
+    }
+
+    public boolean cadastrarVeiculo(String placa, String marca, String modelo){
+        listaVeiculos.add(new Veiculo(placa, marca, modelo));
+        return true;
+    }
+    public void listarVeiculos(){
+        for(int i=0;i< listaVeiculos.size();i++){
+            System.out.printf("Veículo %d -> Placa: %s, Marca: %s, Modelo: %s\n",i+1, listaVeiculos.get(i).getPlaca(), listaVeiculos.get(i).getMarca(), listaVeiculos.get(i).getMarca());
+        }
+
+    }
+
+
 }

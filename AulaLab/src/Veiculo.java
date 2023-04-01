@@ -2,6 +2,7 @@ public class Veiculo {
     private String placa;
     private String marca;
     private String modelo;
+    private int anoFabricacao;
 
     public Veiculo(String placa, String marca, String modelo){
         this.placa = placa;
@@ -26,6 +27,13 @@ public class Veiculo {
     }
     public void setModelo(String modelo){
         this.modelo = modelo;
+    }
+    public int getAnoFabricacao() {
+        return anoFabricacao;
+    }
+
+    public void setAnoFabricacao(int anoFabricacao) {
+        this.anoFabricacao = anoFabricacao;
     }
     public String toString(){
         return String.format("Placa: %s,\nMarca: %s,\nModelo: %s,\n", placa, marca, modelo);
