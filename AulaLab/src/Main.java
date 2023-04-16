@@ -22,6 +22,7 @@ public class Main {
         System.out.println("Modelo: ");
         String modelo = entrada.nextLine();
 
+
         s1.listaClientes.get(0).cadastrarVeiculo(placa, marca, modelo);
         s1.listaClientes.get(1).cadastrarVeiculo("AAA", "BBB", "CCC");
 

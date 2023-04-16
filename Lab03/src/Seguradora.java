@@ -50,41 +50,21 @@ public class Seguradora {
         return String.format("Nome: %s,\nTelefone: %s,\nEmail: %s,\nEndereço: %s,\n", nome, telefone, email, endereco);
     }
 
+    //Cadastra um cliente do tipo PF
     public boolean cadastrarCliente(String nome, String endereco, String genero, Date dataLicenca, String educacao, Date dataNascimento, String classeEconomica, String cpf){
 
         listaClientes.add(new ClientePF(nome, endereco,genero, dataLicenca, educacao, dataNascimento, classeEconomica, cpf));
 
         return true;
     }
+
+    //Cadastra um cliente que tipo PJ
     public boolean cadastrarCliente(String nome, String endereco, Date dataFundacao, String cnpf){
         listaClientes.add(new ClientePJ(nome, endereco, dataFundacao, cnpf));
         return true;
     }
 
-
-//    public boolean cadastrarCLiente(String nome,String dataNascimento, int idade, String endereco, String genero, String classeEconomica, String cpfORcnpj){
-//        String aux = cpfORcnpj.replaceAll("[^0-9]", "");
-//        //System.out.println(aux.length());
-//
-//        if(aux.length() == 11){
-////            ClientePF pf = new ClientePF(nome, dataNascimento, idade, endereco, genero, classeEconomica, cpfORcnpj);
-////            listaClientes.add(pf);
-//            listaClientes.add(new ClientePF(nome, dataNascimento, idade, endereco, genero, classeEconomica, cpfORcnpj));
-//            return true;
-//            //System.out.println("a");
-//
-//
-//        } else if(aux.length()==14){
-////            ClientePJ pj = new ClientePJ(nome, dataNascimento, idade, endereco, genero, classeEconomica, cpfORcnpj);
-////            listaClientes.add(pj);
-//            listaClientes.add(new ClientePJ(nome, dataNascimento, idade, endereco, genero, classeEconomica, cpfORcnpj));
-//            //System.out.println("b");
-//            return true;
-//        }
-//
-//        return false;
-//    }
-
+    // Remove um cliente da listaCliente com base no nome que passamos como parâmetro
     public boolean removerCliente(String nome){
 
         for(int i=0;i<listaClientes.size();i++){
@@ -95,6 +75,8 @@ public class Seguradora {
         }
         return false;
     }
+
+    // Mostra todos os clientes(PF ou PJ) que temos na listaCliente.
     public List<Cliente> listarCliente(String tipo){
 
 
@@ -119,44 +101,38 @@ public class Seguradora {
 
         return this.listaClientes;
 
-//        for(int i=0;i<listaClientes.size();i++){
-//            System.out.printf("Cliente %d -> Nome: %s, Data de nascimento: %s, Endereço: %s, Gênero: %s, Classe Econômica: %s\n", i+1, listaClientes.get(i).getNome(),
-//                    listaClientes.get(i).getDataNascimento(), listaClientes.get(i).getEndereco(), listaClientes.get(i).getGenero(), listaClientes.get(i).getClasseEconomica());
-//        }
+
     }
+
+    // Cria um objeto do tipo sinistro com base nos parâmetros passado e adicina esse objeto na listaSinistros.
     public boolean gerarSinistro(String data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo){
         listaSinistros.add(new Sinistro(data, endereco, seguradora, cliente, veiculo));
         return true;
     }
 
-
+    // Visualiza todos os sinistros de um cliente que passamos como parâmetro;
     public void visualizarSinistro(String cliente_nome){
         int i;
         List<Integer> lista = new ArrayList<>();
         for(i=0;i<listaSinistros.size();i++){
             if(listaSinistros.get(i).cliente.getNome() == cliente_nome){
                 lista.add(i);
-                //break;
+
             }
-            //i++;
+
         }
-        //System.out.println(i);
-        //System.out.println(listaSinistros.get(0).cliente.);
+
         for(i=0;i<lista.size();i++){
 
             System.out.printf("(%d) Data: %s, Endereço: %s, Seguradora: %s, Cliente: %s, Veiculo: %s\n",listaSinistros.get(i).getId(), listaSinistros.get(i).getData(), listaSinistros.get(i).cliente.getEndereco(), listaSinistros.get(i).seguradora.getNome(), listaSinistros.get(i).cliente.getNome(), listaSinistros.get(i).veiculo.getPlaca());
         }
     }
 
-
+    // Mostra todos os sinistro na listaSinistros
     public void listarSinistros(){
         for (Sinistro listaSinistro : listaSinistros) {
             System.out.printf("(%d) Data: %s, Endereço: %s, Seguradora: %s, Cliente: %s, Veiculo: %s\n", listaSinistro.getId(), listaSinistro.getData(), listaSinistro.cliente.getEndereco(), listaSinistro.seguradora.getNome(), listaSinistro.cliente.getNome(), listaSinistro.veiculo.getPlaca());
         }
     }
 
-//    public boolean cadastrarCliente(String nome, String dataNascimento, int idade, String endereco, String genero, String classeEconomica, String cnpj){
-//        listaClientes.add(new ClientePJ(nome, dataNascimento, idade, endereco, genero, classeEconomica, cnpj));
-//        return true;
-//    }
 }

@@ -13,9 +13,10 @@ public class ClientePJ extends Cliente{
     }
 
 
-    int verificador=1;
-    int[] NumerosVeriicadores = {5,4,3,2,9,8,7,6,5,4,3,2};
+    // Retira todos os caracteres que não são números do CNPJ e faz todos os cálculos para verificar se ele é válido
     public boolean validarCNPJ(){
+        int verificador=1;
+        int[] NumerosVeriicadores = {5,4,3,2,9,8,7,6,5,4,3,2};
         cnpj = cnpj.replaceAll("[^0-9]", "");
 
         int soma=0, tamanhoCNPJ=0, num;

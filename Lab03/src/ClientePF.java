@@ -20,6 +20,10 @@ public class ClientePF  extends Cliente{
         this.educacao= educacao;
         this.dataNascimento = dataNascimento;
     }
+
+    //O método validarCPF verifica se todos os dígitos são semelhantes, além
+    // disso, calcular se o CPF de fato é válido calculando os dígitos finais.
+    // Como também retira do CPF tudo aquilo que não for número.
     public boolean validarCPF(){
         int cont=10, soma=0, verificador =1, num,tamanhoCPF=0,cont_num_iguais=0;
 
@@ -129,9 +133,8 @@ public class ClientePF  extends Cliente{
     }
 
     public String toString(){
-        //return String.format("Nome: %s, Endereço: %s, Data Licença: "+ getDataLicenca()+" Educação: %s , Data de nascimento: ", getDataNascimento(), " Classe Econômica: %s, CPF: %s", getNome(), getEndereco(), getEducacao(), getClasseEconomica(), getCpf());
         return String.format("Nome: %s, Endereço: %s, Educação: %s, Classe econômica: %s, Cpf: %s", getNome(), getEndereco(), getEducacao(), getClasseEconomica(), getCpf() +", Data de nascimento: "+getDataNascimento()+", Data de licença: "+ getDataLicenca() );
 
     }
 }
-//String nome, String endereco, String genero, Date dataLicenca, String educacao, Date dataNascimento, String classeEconomica, String cpf
+
