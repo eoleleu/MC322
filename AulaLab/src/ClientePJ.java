@@ -1,10 +1,15 @@
-public class ClientePJ extends Cliente{
-    private String cnpj;
+import java.util.Date;
 
-    public ClientePJ(String nome, String dataNascimento, int idade, String endereco, String genero, String classeEconomica, String cnpj) {
-        super(nome, dataNascimento, idade, endereco, genero, classeEconomica);
+public class ClientePJ extends Cliente{
+
+    protected String cnpj;
+    private Date dataFundacao;
+
+    public ClientePJ(String nome, String endereco,Date dataFundacao,String cnpj) {
+        super(nome, endereco);
 
         this.cnpj = cnpj;
+        this.dataFundacao = dataFundacao;
     }
 
 
@@ -75,8 +80,17 @@ public class ClientePJ extends Cliente{
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
+    public Date getDataFundacao() {
+        return dataFundacao;
+    }
+
+    public void setDataFundacao(Date dataFundacao) {
+        this.dataFundacao = dataFundacao;
+    }
+
     public String toString(){
 
-        return String.format("Nome: %s,\nCPF: %s,\nData de Nascimento: %s,\nIdade: %d,\nEndereço: %s\n", getNome(), getDataNascimento(), getIdade(), getEndereco());
+        return String.format("Nome: %s, Endereço: %s, Data da Fundação: "+getDataFundacao()+", CNPJ: %s", getNome(), getEndereco(), getCnpj());
     }
 }

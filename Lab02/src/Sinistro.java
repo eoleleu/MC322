@@ -1,20 +1,12 @@
 import java.util.Random;
-import java.util.Date;
 public class Sinistro {
     private int id;
     private String data;
     private String endereco;
-    public Seguradora seguradora;
-    public Cliente cliente;
-    public Veiculo veiculo;
 
-
-    public Sinistro(String data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo) {
+    public Sinistro(String data, String endereco){
         this.data = data;
         this.endereco = endereco;
-        this.seguradora = seguradora;
-        this.cliente = cliente;
-        this.veiculo = veiculo;
         id = gerarID();
     }
 

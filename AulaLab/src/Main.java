@@ -1,49 +1,67 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner entrada = new Scanner(System.in);
-        String nome = entrada.next();
-        String data = entrada.next();
-        String endereco = entrada.next();
-        String genero = entrada.next();
-        String classe = entrada.next();
-        String cpf = entrada.next();
-        int idade = entrada.nextInt();
-
-        ClientePF pf = new ClientePF(nome, data, idade, endereco, genero, classe,cpf);
-        ClientePJ pj = new ClientePJ("Multilaser", "15/06/1991", 32, "Unicampp", "m", "A", "12.528.708/0001-07");
-
-        System.out.println(pf.validarCPF());
-        System.out.println(pj.validarCNPJ()+"\n");
-
-
         List<Seguradora> ListaSeguradoras = new ArrayList<>();
-        Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "leleuresende@gmail.com", "ofaajdasod");
+        Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "l213437@gmail.com", "ofaajdasod");
 
-        s1.cadastrarCLiente("joao", "32", 44, "aaaaaaa", "m", "A","105.150.126-10");
-        s1.cadastrarCLiente("Leandro", "515", 15, "ldjada", "m", "A","12.528.708/0001-02");
+        s1.cadastrarCliente("Leandro", "Rua COndessa do Pinhal", "M", new Date(2002/6/15), "Ensino superior incompleto", new Date(2002/6/15), "Baixa", "018.372.696-07");
 
-        s1.listaClientes.get(0).cadastrarVeiculo("HGE", "BMW", "3200");
+        s1.cadastrarCliente("Unicamp", "Av. 1", new Date(66, 1, 1), "46.068.425/0001-33");
+
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Cadastre um veículo para o cliente "+s1.listaClientes.get(0).getNome()+":\n");
+        System.out.println("Placa: ");
+        String placa = entrada.nextLine();
+        System.out.println("Marca do veículo: ");
+        String marca = entrada.nextLine();
+        System.out.println("Modelo: ");
+        String modelo = entrada.nextLine();
+
+        s1.listaClientes.get(0).cadastrarVeiculo(placa, marca, modelo);
         s1.listaClientes.get(1).cadastrarVeiculo("AAA", "BBB", "CCC");
 
         s1.gerarSinistro("151", "fadadad", s1, s1.listaClientes.get(0), s1.listaClientes.get(0).listaVeiculos.get(0));
         s1.gerarSinistro("222", "kkkk", s1, s1.listaClientes.get(1), s1.listaClientes.get(1).listaVeiculos.get(0));
 
-        s1.listarCliente();
+        System.out.println(s1.listarCliente("PJ"));
+        System.out.println(s1.listarCliente("PF"));
 
-        System.out.println();
-
-        s1.visualizarSinistro(s1.listaClientes.get(0).getNome());
-
-        System.out.println();
 
         s1.listarSinistros();
+        s1.visualizarSinistro(s1.listaClientes.get(0).getNome());
 
-        s1.removerCliente(0);
+        Cliente a = s1.listaClientes.get(1);
+        System.out.println("CNPJ " + ((ClientePJ)a).validarCNPJ());
+        System.out.println("CPF "+ ((ClientePF)s1.listaClientes.get(0)).validarCPF());
+
+        System.out.println(s1.listaClientes.get(0).toString());
+        System.out.println(s1.listaClientes.get(1).toString());
+
+
+        s1.removerCliente("Leandro");
+        s1.removerCliente("Unicamp");
+        //        Scanner entrada = new Scanner(System.in);
+//        String nome = entrada.next();
+//        String data = entrada.next();
+//        String endereco = entrada.next();
+//        String genero = entrada.next();
+//        String classe = entrada.next();
+//        String cpf = entrada.next();
+//        int idade = entrada.nextInt();
+//
+//        ClientePF pf = new ClientePF(nome, data, idade, endereco, genero, classe,cpf);
+//        ClientePJ pj = new ClientePJ("Multilaser", "15/06/1991", 32, "Unicampp", "m", "A", "12.528.708/0001-07");
+//
+//        System.out.println(pf.validarCPF());
+//        System.out.println(pj.validarCNPJ()+"\n");
+
+        //System.out.println(    ((ClientePJ)s1.listaClientes.get(1)).getCnpj());
+//        //s1.removerCliente(0);
 //
 //        s1.listaClientes.get(0).listarVeiculos();
 

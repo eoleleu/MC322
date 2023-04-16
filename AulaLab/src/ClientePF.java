@@ -1,12 +1,24 @@
+import java.util.Date;
 
 public class ClientePF  extends Cliente{
 
-    private String cpf;
+    public String cpf;
+    private String genero;
+    private Date dataNascimento;
+    private String educacao;
 
-    public ClientePF(String nome,String dataNascimento, int idade, String endereco, String genero, String classeEconomica, String cpf) {
+    private String classeEconomica;
+    private Date dataLicenca;
 
-        super(nome,dataNascimento, idade, endereco, genero, classeEconomica);
+    public ClientePF(String nome, String endereco, String genero, Date dataLicenca, String educacao, Date dataNascimento, String classeEconomica, String cpf) {
+
+        super(nome,endereco);
         this.cpf = cpf;
+        this.genero = genero;
+        this.classeEconomica = classeEconomica;
+        this.dataLicenca = dataLicenca;
+        this.educacao= educacao;
+        this.dataNascimento = dataNascimento;
     }
     public boolean validarCPF(){
         int cont=10, soma=0, verificador =1, num,tamanhoCPF=0,cont_num_iguais=0;
@@ -74,4 +86,52 @@ public class ClientePF  extends Cliente{
     public void setCpf(String cpf){
         this.cpf = cpf;
     }
+
+
+    public String getEducacao() {
+        return educacao;
+    }
+
+    public void setEducacao(String educacao) {
+        this.educacao = educacao;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getClasseEconomica() {
+        return classeEconomica;
+    }
+
+    public void setClasseEconomica(String classeEconomica) {
+        this.classeEconomica = classeEconomica;
+    }
+
+    public Date getDataLicenca() {
+        return dataLicenca;
+    }
+
+    public void setDataLicenca(Date dataLicenca) {
+        this.dataLicenca = dataLicenca;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String toString(){
+        //return String.format("Nome: %s, Endereço: %s, Data Licença: "+ getDataLicenca()+" Educação: %s , Data de nascimento: ", getDataNascimento(), " Classe Econômica: %s, CPF: %s", getNome(), getEndereco(), getEducacao(), getClasseEconomica(), getCpf());
+        return String.format("Nome: %s, Endereço: %s, Educação: %s, Classe econômica: %s, Cpf: %s", getNome(), getEndereco(), getEducacao(), getClasseEconomica(), getCpf() +", Data de nascimento: "+getDataNascimento()+", Data de licença: "+ getDataLicenca() );
+
+    }
 }
+//String nome, String endereco, String genero, Date dataLicenca, String educacao, Date dataNascimento, String classeEconomica, String cpf
