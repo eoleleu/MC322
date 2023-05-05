@@ -14,7 +14,7 @@ public class AppMain {
         List<Seguradora> ListaSeguradoras = new ArrayList<>();
 //        LocalDateTime agora = LocalDateTime.now();
 //        System.out.println(agora.getYear());
-//        System.out.println(localDate.getYear());
+//        System.out.println(localDate.getYear())
 
         Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "l213437@gmail.com", "ofaajdasod");
         ListaSeguradoras.add(s1);
