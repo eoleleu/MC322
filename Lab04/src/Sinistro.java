@@ -1,15 +1,17 @@
+import java.time.LocalDate;
 import java.util.Random;
+
 import java.util.Date;
 public class Sinistro {
     private int id;
-    private String data;
+    private LocalDate data;
     private String endereco;
     public Seguradora seguradora;
     public Cliente cliente;
     public Veiculo veiculo;
 
 
-    public Sinistro(String data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo) {
+    public Sinistro(LocalDate data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo) {
         this.data = data;
         this.endereco = endereco;
         this.seguradora = seguradora;
@@ -29,10 +31,10 @@ public class Sinistro {
     public void setId(int id) {
         this.id = id;
     }
-    public String getData(){
+    public LocalDate getData(){
         return data;
     }
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     public String getEndereco(){
@@ -42,7 +44,7 @@ public class Sinistro {
         this.endereco = endereco;
     }
     public String toString(){
-        return String.format("ID: %d,\nCliente: %s\nVeículo: %s\nData: %s,\nEndereço: %s\n",id,cliente.getNome(), veiculo.toString(), data, endereco);
+        return String.format("ID: %d,\nCliente: %s\nVeículo: %s\nEndereço: %s\n",id,cliente.getNome(), veiculo.toString(), endereco);
     }
 
 }

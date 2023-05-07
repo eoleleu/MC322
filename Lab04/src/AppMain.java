@@ -1,8 +1,6 @@
 
-import java.sql.SQLOutput;
 import java.util.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class AppMain {
 
@@ -18,6 +16,14 @@ public class AppMain {
 
         Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "l213437@gmail.com", "ofaajdasod");
         ListaSeguradoras.add(s1);
+        s1.cadastrarCliente("Leandro", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(2002, 6, 15), "Baixa",0,"018.372.696-07");
+        s1.listaClientes.get(0).cadastrarVeiculo("HGE-9443", "Volks", "Fox", 2011);
+        s1.gerarSinistro(LocalDate.of(2022, 1,1), "av.2", ListaSeguradoras.get(0), ListaSeguradoras.get(0).listaClientes.get(0),ListaSeguradoras.get(0).listaClientes.get(0).listaVeiculos.get(0));
+
+        Seguradora s2 = new Seguradora("SulaAmerica", "aodasda", "l213437@gmail.com", "ofaajdasod");
+        ListaSeguradoras.add(s2);
+        s1.cadastrarCliente("Ana", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(1975, 6, 15), "Baixa",0,"018.372.696-07");
+        s1.listaClientes.get(0).cadastrarVeiculo("MKT-8450", "Mercedes", "GLE", 2023);
 
 
         int menu_p = -1;
@@ -197,11 +203,18 @@ public class AppMain {
                         for(int i=0;i<ListaSeguradoras.size();i++){
                             System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
 
-                            System.out.println("CLIENTES PESSOA FÍSICA");
-                            System.out.println(ListaSeguradoras.get(i).listarCliente("PF"));
+                            System.out.println("CLIENTES PESSOA FÍSICA:");
+                            List<Cliente> pf = ListaSeguradoras.get(i).listarCliente("PF");
+                            for (Cliente cliente : pf) {
+                                System.out.println(cliente);
+                            }
 
-                            System.out.println("CLIENTES PESSOA JURÍDICA");
-                            System.out.println(ListaSeguradoras.get(i).listarCliente("PJ"));
+                            System.out.println("CLIENTES PESSOA JURÍDICA:");
+                            List<Cliente> pj = ListaSeguradoras.get(i).listarCliente("PF");
+                            for (Cliente cliente : pj) {
+                                System.out.println(cliente);
+                            }
+
 
 //                            for(int j=0;j<ListaSeguradoras.get(i).listaClientes.size();j++){
 //                                System.out.printf("%d - %s\n", j+1, ListaSeguradoras.get(i).listaClientes.get(j).getNome());
@@ -228,7 +241,7 @@ public class AppMain {
                         System.out.printf("Qual cliente da seguradora %s você deseja ver os sinistros?\n", ListaSeguradoras.get(seg_s-1).getNome());
                         int cliente_s = entrada_s.nextInt();
 
-                        ListaSeguradoras.get(seg_s).visualizarSinistro(ListaSeguradoras.get(seg_s).listaClientes.get(cliente_s).getNome());
+                        ListaSeguradoras.get(seg_s-1).visualizarSinistro(ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).getNome());
                     } else if(menu_listar==2.4){
                         for(int i=0;i<ListaSeguradoras.size();i++){
                             System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
@@ -317,14 +330,82 @@ public class AppMain {
                         ListaSeguradoras.get(seg_e).removerSinistro(ID_e);
 
 
-
-
                     }
 
                 }
-            } else {
+            } else if(menu_p == 4){
+                double menu_sinistro = -1;
+                while (menu_sinistro!=0){
+
+                    System.out.println("4.1 - Gerar novo sinistro\n0 - Voltar");
+                    menu_sinistro= entrada.nextDouble();
+                    if(menu_sinistro==4.1){
+
+
+                        for(int i=0;i<ListaSeguradoras.size();i++){
+                            System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
+                        }
+
+                        System.out.println("Selecione em qual seguradora você deseja registrar o sinistro:");
+                        Scanner entrada_s = new Scanner(System.in);
+                        int seg_s = entrada_s.nextInt();
+
+                        for(int i=0;i<ListaSeguradoras.get(seg_s-1).listaClientes.size();i++){
+                            System.out.printf("%d - %s\n", i+1, ListaSeguradoras.get(seg_s-1).listaClientes.get(i).getNome());
+                        }
+
+                        System.out.println("Selecione em qual cliente você deseja registrar o sinistro:");
+                        int cliente_s = entrada_s.nextInt();
+
+                        for(int i=0;i<ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).listaVeiculos.size();i++){
+                            System.out.printf("%d - %s\n", i+1, ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).listaVeiculos.get(i).getPlaca());
+                        }
+
+                        System.out.println("Selecione o veículo que deseja registrar o sinistro:");
+                        int veiculo_s = entrada_s.nextInt();
+
+
+                        System.out.println("Data do sinistro(DD/MM/YYYY):");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                        String date = entrada_s.next();
+
+                        LocalDate data_sinistro = LocalDate.parse(date, formatter);
+
+                        System.out.println("Endereço onde ocorrreu o sinistro:");
+                        String endereco = entrada_s.next();
+
+                        ListaSeguradoras.get(seg_s-1).gerarSinistro(data_sinistro, endereco, ListaSeguradoras.get(seg_s-1), ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1), ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).listaVeiculos.get(veiculo_s-1));
+                        System.out.println("Sinistro gerado com sucesso!");
+                    } else if(menu_sinistro==0){
+                        System.out.println("Saindo do menu gerar sinistro...");
+                    } else {
+                        System.out.println("Ops, comando inválido!");
+                    }
+
+
+
+                }
+
+            } else if(menu_p ==6){
+                int menu_receita=-1;
+                while(menu_receita!=0){
+                    System.out.println("Selecione a Seguradora na qual deseja calcular a receita:");
+
+                    for(int i=0;i<ListaSeguradoras.size();i++){
+                        System.out.printf("%d - %s\n", i+1, ListaSeguradoras.get(i).getNome());
+                    }
+                    System.out.println("0 - Voltar");
+                    menu_receita= entrada.nextInt();
+                    if(menu_receita!=0){
+                        ListaSeguradoras.get(menu_receita-1).calcularPrecoSeguroCliente();
+                        System.out.printf("A receita da seguradora %s é R$%.2f\n", ListaSeguradoras.get(menu_receita-1).getNome(), ListaSeguradoras.get(menu_receita-1).calcularReceita());
+                    }
+
+                }
+
+            }else {
                 if(menu_p == 0){
-                    System.out.println("Saindo...");
+                    System.out.println("Saiu do sistema!");
                 } else {
 
                     System.out.println("Comando inválido!");

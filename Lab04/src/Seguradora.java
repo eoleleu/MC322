@@ -106,7 +106,7 @@ public class Seguradora {
     }
 
     // Cria um objeto do tipo sinistro com base nos parâmetros passado e adicina esse objeto na listaSinistros.
-    public boolean gerarSinistro(String data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo){
+    public boolean gerarSinistro(LocalDate data, String endereco, Seguradora seguradora, Cliente cliente, Veiculo veiculo){
         listaSinistros.add(new Sinistro(data, endereco, seguradora, cliente, veiculo));
         return true;
     }
