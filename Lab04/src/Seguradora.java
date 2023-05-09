@@ -53,16 +53,25 @@ public class Seguradora {
 
     //Cadastra um cliente do tipo PF
     public boolean cadastrarCliente(String nome, String endereco, String genero, LocalDate dataLicenca, String educacao, LocalDate dataNascimento, String classeEconomica,double valorSeguro, String cpf){
+        if (Validacao.validarCPF(cpf) && Validacao.valinarNOMEcliente(nome)){
 
-        listaClientes.add(new ClientePF(nome, endereco,genero, dataLicenca, educacao, dataNascimento, classeEconomica, valorSeguro,cpf));
+            listaClientes.add(new ClientePF(nome, endereco,genero, dataLicenca, educacao, dataNascimento, classeEconomica, valorSeguro,cpf));
+            return true;
+        }
+        System.out.printf("CPF ou nome do cliente %s inválido(s)", nome);
+        return false;
 
-        return true;
     }
 
     //Cadastra um cliente que tipo PJ
-    public boolean cadastrarCliente(String nome, String endereco, LocalDate dataFundacao,int qtdeFuncionarios, int valorSeguro, String cnpf){
-        listaClientes.add(new ClientePJ(nome, endereco, dataFundacao, qtdeFuncionarios,valorSeguro, cnpf));
-        return true;
+    public boolean cadastrarCliente(String nome, String endereco, LocalDate dataFundacao,int qtdeFuncionarios, int valorSeguro, String cnpj){
+        if(Validacao.validarCNPJ(cnpj) && Validacao.valinarNOMEcliente(nome)){
+            listaClientes.add(new ClientePJ(nome, endereco, dataFundacao, qtdeFuncionarios,valorSeguro, cnpj));
+            return true;
+
+        }
+        System.out.printf("CNPJ ou nome da empresa %s inválido(s)", nome);
+        return false;
     }
 
     // Remove um cliente da listaCliente com base no nome que passamos como parâmetro

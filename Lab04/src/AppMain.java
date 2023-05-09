@@ -16,14 +16,38 @@ public class AppMain {
 
         Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "l213437@gmail.com", "ofaajdasod");
         ListaSeguradoras.add(s1);
-        s1.cadastrarCliente("Leandro", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(2002, 6, 15), "Baixa",0,"018.372.696-07");
-        s1.listaClientes.get(0).cadastrarVeiculo("HGE-9443", "Volks", "Fox", 2011);
-        s1.gerarSinistro(LocalDate.of(2022, 1,1), "av.2", ListaSeguradoras.get(0), ListaSeguradoras.get(0).listaClientes.get(0),ListaSeguradoras.get(0).listaClientes.get(0).listaVeiculos.get(0));
 
-        Seguradora s2 = new Seguradora("SulaAmerica", "aodasda", "l213437@gmail.com", "ofaajdasod");
-        ListaSeguradoras.add(s2);
-        s1.cadastrarCliente("Ana", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(1975, 6, 15), "Baixa",0,"018.372.696-07");
-        s1.listaClientes.get(0).cadastrarVeiculo("MKT-8450", "Mercedes", "GLE", 2023);
+        s1.cadastrarCliente("Leandro", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(2002, 6, 15), "Baixa",0,"018.372.696-02");
+        s1.cadastrarCliente("Unicamp", "Av.1", LocalDate.of(1966, 10, 5), 8000, 0, "46.068.425/0001-33");
+        s1.cadastrarCliente("Gustavo", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(1975, 6, 15), "Baixa",0,"018.372.696-02");
+        s1.cadastrarCliente("Ana", "Rua COndessa do Pinhal", "M", LocalDate.of(2018, 7, 22), "Ensino superior incompleto",LocalDate.of(1969, 7, 17), "Baixa",0,"018.372.696-02");
+
+
+        s1.listaClientes.get(0).cadastrarVeiculo("HGE-9443", "Volks", "Fox", 2011);
+        s1.listaClientes.get(1).cadastrarVeiculo("BBB-1111", "BMW", "Palio", 2021);
+        s1.listaClientes.get(2).cadastrarVeiculo("CCC-2222", "Porsche", "Uno", 2001);
+        s1.listaClientes.get(2).cadastrarVeiculo("MKT-8450", "Mercedes", "GLE", 2023);
+        s1.listaClientes.get(3).cadastrarVeiculo("AAA-1111", "Volks", "Fox", 2011);
+
+        s1.gerarSinistro(LocalDate.of(2022, 1,1), "av.2", ListaSeguradoras.get(0), ListaSeguradoras.get(0).listaClientes.get(0),ListaSeguradoras.get(0).listaClientes.get(0).listaVeiculos.get(0));
+        s1.gerarSinistro(LocalDate.of(2021, 2,3), "av.1", ListaSeguradoras.get(0), ListaSeguradoras.get(0).listaClientes.get(1),ListaSeguradoras.get(0).listaClientes.get(1).listaVeiculos.get(0));
+
+        System.out.println(s1.listarCliente("PF"));
+        System.out.println(s1.listarCliente("PJ"));
+
+        s1.visualizarSinistro(s1.listaClientes.get(0).getNome());
+
+        s1.listarSinistros();
+
+        s1.calcularReceita();
+
+        s1.calcularPrecoSeguroCliente();
+        System.out.printf("R$%.2f\n", s1.calcularReceita());
+
+
+
+//        Seguradora s2 = new Seguradora("SulaAmerica", "aodasda", "l213437@gmail.com", "ofaajdasod");
+//        ListaSeguradoras.add(s2);
 
 
         int menu_p = -1;
@@ -31,7 +55,7 @@ public class AppMain {
             System.out.println("1 - Cadastros\n2 - Listar\n3 - Exclur\n4 - Gerar Sinistro\n5 - Transferir Seguro\n6 - Calcular Receita Seguradora\n0 - Sair");
             menu_p = entrada.nextInt();
 
-            if(menu_p == 1){
+            if(menu_p == MenuOperacoes.CADASTRAR.getOperacao()){
                 double menu_cadastrar=-1;
                 while(menu_cadastrar!=0){
 
@@ -192,7 +216,7 @@ public class AppMain {
                     }
 
                 }
-            } else if(menu_p == 2){
+            } else if(menu_p == MenuOperacoes.LISTAR.getOperacao()){
                 double menu_listar=-1;
                 while(menu_listar!=0){
 
@@ -210,7 +234,7 @@ public class AppMain {
                             }
 
                             System.out.println("CLIENTES PESSOA JURÍDICA:");
-                            List<Cliente> pj = ListaSeguradoras.get(i).listarCliente("PF");
+                            List<Cliente> pj = ListaSeguradoras.get(i).listarCliente("PJ");
                             for (Cliente cliente : pj) {
                                 System.out.println(cliente);
                             }
@@ -255,7 +279,12 @@ public class AppMain {
                         System.out.printf("Qual cliente da seguradora %s você deseja ver o(s) veículo?\n", ListaSeguradoras.get(seg_s-1).getNome());
                         int cliente_s = entrada_s.nextInt();
 
-                        ListaSeguradoras.get(seg_s).listaClientes.get(cliente_s).listarVeiculos();
+                        if(ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).listaVeiculos.size()!=0){
+
+                            ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1).listarVeiculos();
+                        } else {
+                            System.out.println("O cliente não possui nenhum veículo.");
+                        }
                     } else if(menu_listar==2.5){
                         for (int i=0;i<ListaSeguradoras.size();i++){
                             System.out.println(ListaSeguradoras.get(i).getNome());
@@ -264,14 +293,14 @@ public class AppMain {
                             }
                         }
                     } else if(menu_listar==0){
-                        System.out.println("Saindo do menu listar");
+                        System.out.println("Saindo do menu listar...");
                     } else {
                         System.out.println("Comando inválido!");
                     }
 
 
                 }
-            } else if(menu_p == 3){
+            } else if(menu_p == MenuOperacoes.EXCLUIR.getOperacao()){
                 double menu_excluir=-1;
                 while(menu_excluir!=0){
 
@@ -333,7 +362,7 @@ public class AppMain {
                     }
 
                 }
-            } else if(menu_p == 4){
+            } else if(menu_p == MenuOperacoes.GERAR_SINISTRO.getOperacao()){
                 double menu_sinistro = -1;
                 while (menu_sinistro!=0){
 
@@ -386,7 +415,60 @@ public class AppMain {
 
                 }
 
-            } else if(menu_p ==6){
+            } else if(menu_p==MenuOperacoes.TRANSFERIR_SEGURO.getOperacao()){
+                double menu_troca = -1;
+                while(menu_troca!=0){
+                    System.out.println("5.1 - Transferir seguro\n0 - Voltar");
+                    menu_troca= entrada.nextDouble();
+
+                    if(menu_troca==5.1){
+                        for(int i=0;i<ListaSeguradoras.size();i++){
+                            System.out.printf("%d - %s\n", i+1, ListaSeguradoras.get(i).getNome());
+                        }
+                        System.out.println("0 - Voltar");
+                        System.out.println("Selecione a Seguradora na qual você deja fazer a transferência de seguro entre clientes");
+                        Scanner entrada_tr = new Scanner(System.in);
+                        int seg_tr = entrada_tr.nextInt();
+
+
+                        for(int i=0;i<ListaSeguradoras.get(seg_tr-1).listaClientes.size();i++){
+                            System.out.printf("%d - %s\n", i+1, ListaSeguradoras.get(seg_tr-1).listaClientes.get(i).getNome());
+                        }
+                        System.out.println("Selecione o cliente que receberá a transferência:");
+                        int cliente1_tr = entrada_tr.nextInt();
+
+                        System.out.println("Selecione o cliente que irá tranferir o seu seguro:");
+                        int cliente2_tr = entrada_tr.nextInt();
+
+                        for(int i=0;i<ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.size();i++){
+                            ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente1_tr-1).cadastrarVeiculo(ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.get(i).getPlaca(),
+                                    ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.get(i).getMarca(), ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.get(i).getModelo(),
+                                    ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.get(i).getAnoFabricacao());
+                        }
+
+                        for(int i=0;i<ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.size();i++){
+                            Veiculo v1 = ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.get(0);
+                            ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.remove(v1);
+                            i-=1;
+                        }
+
+                        if(ListaSeguradoras.get(seg_tr-1).listaClientes.get(cliente2_tr-1).listaVeiculos.size()==0){
+                            System.out.println("Transferência realizada com sucesso!");
+                        }
+
+
+                    } else if(menu_troca==0){
+                        System.out.println("Saindo do menu transferência de seguro");
+                    } else{
+                        System.out.println("Ops, comando inválido!");
+                    }
+
+
+
+
+
+                }
+            } else if(menu_p ==MenuOperacoes.CALCULAR_RECEITA_SEGURADORA.getOperacao()){
                 int menu_receita=-1;
                 while(menu_receita!=0){
                     System.out.println("Selecione a Seguradora na qual deseja calcular a receita:");
@@ -404,7 +486,7 @@ public class AppMain {
                 }
 
             }else {
-                if(menu_p == 0){
+                if(menu_p == MenuOperacoes.SAIR.getOperacao()){
                     System.out.println("Saiu do sistema!");
                 } else {
 
@@ -414,7 +496,7 @@ public class AppMain {
 
 
         }
-        ListaSeguradoras.get(0).calcularPrecoSeguroCliente();
-        System.out.println(ListaSeguradoras.get(0).listaClientes.get(0).getValorSeguro());
+//        ListaSeguradoras.get(0).calcularPrecoSeguroCliente();
+//        System.out.println(ListaSeguradoras.get(0).listaClientes.get(0).getValorSeguro());
     }
 }
