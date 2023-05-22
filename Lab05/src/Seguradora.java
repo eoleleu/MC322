@@ -93,7 +93,7 @@ public class Seguradora {
     }
 
 
-    public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, int valorMensal, Frota frota, ClientePJ cliente){
+    public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, Frota frota, ClientePJ cliente){
         Random gerador = new Random();
         int id = gerador.nextInt(99999);
 
@@ -137,10 +137,10 @@ public class Seguradora {
 
     }
 
-    //Cadastra um cliente que tipo PJ
-    public boolean cadastrarCliente(String nome, String telefone,String endereco, String email, String cnpj, LocalDate dataFundacao){
+    //Cadastra um cliente do tipo PJ
+    public boolean cadastrarCliente(String nome, String telefone,String endereco, String email, String cnpj, LocalDate dataFundacao, int qtdFuncionarios){
         if(Validacao.validarCNPJ(cnpj) && Validacao.valinarNOMEcliente(nome)){
-            listaClientes.add(new ClientePJ(nome, telefone, endereco, email, cnpj, dataFundacao));
+            listaClientes.add(new ClientePJ(nome, telefone, endereco, email, cnpj, dataFundacao, qtdFuncionarios));
             return true;
 
         }
@@ -205,8 +205,81 @@ public class Seguradora {
         return lista;
     }
 
-    public int calcularReceita(){
-        int receita =0;
+    public double calcularReceita(){
+
+        for(int i=0;i<listaSeguros.size();i++){
+            if(listaSeguros.get(i) instanceof SeguroPF){
+                int qtdVeiculosSegurados=0;
+                for(int j=0;j<listaSeguros.size();j++){
+                    if(((SeguroPF) listaSeguros.get(j)).getVeiculo().getPlaca().equals(((SeguroPF) listaSeguros.get(i)).getVeiculo().getPlaca())){
+                        qtdVeiculosSegurados+=1;
+                    }
+                }
+
+                int qtdSinistrosCliente=0;
+                for(int j=0;j<listaSeguros.size();j++){
+                    if(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf().equals(((SeguroPF) listaSeguros.get(i)).getCliente().getCpf())){
+                        for(int k=0;k<listaSeguros.get(j).listaSinistros.size();k++)
+                            if(listaSeguros.get(j).listaSinistros.get(k).getCondutor().getCpf().equals(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf()))
+                                qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                    }
+                }
+
+                int qtdSinistroCondutores=0;
+
+                for(int j=0;j<listaSeguros.get(i).listaCondutores.size();j++){
+                    for(int k=0;k<listaSeguros.size();k++){
+                        for(int m=0;m<listaSeguros.get(k).listaSinistros.size();m++){
+                            if(listaSeguros.get(i).listaCondutores.get(j).getCpf().equals(listaSeguros.get(k).listaSinistros.get(m).getCondutor().getCpf())){
+                                qtdSinistroCondutores+=1;
+                            }
+                        }
+                    }
+                }
+
+                listaSeguros.get(i).calculaValor(qtdVeiculosSegurados, qtdSinistrosCliente, qtdSinistroCondutores);
+
+            } else if(listaSeguros.get(i) instanceof SeguroPJ){
+
+                int qtdSinistrosCliente=0;
+                for(int j=0;j<listaSeguros.size();j++){
+                    if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
+                        qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                    }
+                }
+
+                int qtdVeiculosSegurados=0;
+                for(int j=0;j<listaSeguros.size();j++){
+                    if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
+                        qtdVeiculosSegurados+=((SeguroPJ) listaSeguros.get(j)).getFrota().listaVeiculos.size();
+                    }
+                }
+
+                int qtdSinistroCondutores=0;
+                for(int j=0;j<listaSeguros.get(i).listaCondutores.size();j++){
+                    for(int k=0;k<listaSeguros.size();k++){
+                        for(int m=0;m<listaSeguros.get(k).listaSinistros.size();m++){
+                            if(listaSeguros.get(i).listaCondutores.get(j).getCpf().equals(listaSeguros.get(k).listaSinistros.get(m).getCondutor().getCpf())){
+                                qtdSinistroCondutores+=1;
+                            }
+                        }
+                    }
+                }
+
+                listaSeguros.get(i).calculaValor(qtdVeiculosSegurados, qtdSinistrosCliente, qtdSinistroCondutores);
+
+
+
+
+
+            }
+
+        }
+
+
+
+
+        double receita =0;
         for(int i=0;i<listaSeguros.size();i++){
             receita += listaSeguros.get(i).getValorMensal();
         }

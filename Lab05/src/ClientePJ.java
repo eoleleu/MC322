@@ -41,4 +41,9 @@ public class ClientePJ extends Cliente{
     public void setQtdFuncionarios(int qtdFuncionarios) {
         this.qtdFuncionarios = qtdFuncionarios;
     }
+
+    public String toString(){
+
+        return String.format("Nome: %s, Endereço: %s, Telefone: %s, Email: %s, CNPJ: %s, Quantidade de Funcionários: %d", getNome(), getEndereco(), getTelefone(), getEmail(), getCnpj(), getQtdFuncionarios());
+    }
 }

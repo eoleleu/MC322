@@ -57,7 +57,15 @@ public abstract class Seguro {
         this.valorMensal = valorMensal;
     }
 
-    public abstract double calculaValor();
+
+    public abstract boolean autorizarCondutor(String cpf, String nome, String telefone, String endereco, String email, LocalDate dataNacimento);
+
+    public abstract void desautorizarCondutor(String nome);
+
+    public abstract boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro);
+
+    public void calculaValor(int qtdVeiculosSegurados, int qtdSinistrosCliente, int qtdSinistroCondutores) {
+    }
 
 
 }

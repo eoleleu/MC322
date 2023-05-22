@@ -63,4 +63,10 @@ public class Condutor {
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+    public boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro){
+        listaSinistros.add(new Sinistro(data,endereco, condutor, seguro));
+        seguro.listaSinistros.add(new Sinistro(data, endereco, condutor, seguro));
+        return true;
+    }
 }

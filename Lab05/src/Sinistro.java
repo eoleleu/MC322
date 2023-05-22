@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class Sinistro {
-    private int id;
+    private final int id;
     private LocalDate data;
     private String endereco;
     private Condutor condutor;
@@ -25,9 +25,7 @@ public class Sinistro {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
+
     public LocalDate getData(){
         return data;
     }

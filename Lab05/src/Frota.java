@@ -3,17 +3,23 @@ import java.util.List;
 import java.util.Random;
 
 public class Frota {
-    private String code;
+    private final int code;
     public List<Veiculo> listaVeiculos = new ArrayList<>();
 
-    public Frota(String code){
-        this.code = code;
+    public Frota(){
+        Random gerador = new Random();
+        this.code = gerador.nextInt(99999) ;
     }
 
     public boolean addVeiculo(Veiculo veiculo){
         listaVeiculos.add(veiculo);
         return true;
     }
+    public boolean addVeiculo(String placa, String marca, String modelo, int anoFabricacao){
+        listaVeiculos.add(new Veiculo(placa, marca, modelo, anoFabricacao));
+        return true;
+    }
+
 
     public boolean removeVeiculo(Veiculo veiculo){
         for(int i=0;i<listaVeiculos.size();i++){
@@ -25,11 +31,11 @@ public class Frota {
         return false;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+
+
+
 }

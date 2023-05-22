@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeguroPF extends Seguro {
     private Veiculo veiculo;
@@ -9,7 +11,7 @@ public class SeguroPF extends Seguro {
         super(id, dataInicio, dataFim, seguradora,0);
         this.veiculo = veiculo;
         this.cliente = cliente;
-        setValorMensal(calculaValor());
+
 
     }
 
@@ -31,12 +33,33 @@ public class SeguroPF extends Seguro {
         this.cliente = cliente;
     }
 
-    @Override
-    public double calculaValor(){
-        int qtdSinistroCondutor =0;
-        for(int i=0;i<listaCondutores.size();i++){
-            qtdSinistroCondutor += listaCondutores.get(i).listaSinistros.size();
+    public boolean autorizarCondutor(String cpf, String nome, String telefone, String endereco, String email, LocalDate dataNacimento){
+        if(Validacao.validarCPF(cpf) && Validacao.valinarNOMEcliente(nome)){
+            listaCondutores.add(new Condutor(cpf, nome, telefone, endereco, email, dataNacimento));
+            return true;
         }
+        return false;
+    }
+
+    public void desautorizarCondutor(String nome){
+        for(int i=0;i<listaCondutores.size();i++){
+            if(listaCondutores.get(i).getNome().equals(nome)){
+                listaCondutores.remove(i);
+                break;
+            }
+        }
+
+    }
+
+    public boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro){
+        listaSinistros.add(new Sinistro(data,endereco, condutor, seguro));
+        condutor.gerarSinistro(data, endereco, condutor, seguro);
+        return true;
+    }
+
+
+
+    public void calculaValor(int qtdVeiculosSegurados, int qtdSinistrosCliente,int qtdSinistroCondutores){
 
         int idade =  LocalDate.now().getYear() - cliente.getDataNascimento().getYear();
         double fator;
@@ -47,7 +70,10 @@ public class SeguroPF extends Seguro {
         } else {
             fator = 1.5;
         }
-        return 10*fator*(1+1/(cliente.listaVeiculos.size()+2.0))*(2 + listaSinistros.size()/10.0)*(5 * qtdSinistroCondutor/10.0);
+
+        setValorMensal(10*fator*(1+1/(cliente.listaVeiculos.size()+2.0))*(2 + listaSinistros.size()/10.0)*(5 * qtdSinistroCondutores/10.0));
 
     }
+
+
 }
