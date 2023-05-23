@@ -62,9 +62,15 @@ public class SeguroPJ extends Seguro{
     public void calculaValor(int qtdVeiculosSegurados, int qtdSinistrosCliente,int qtdSinistroCondutores){
         int AnosPosFundacao =  LocalDate.now().getYear() - cliente.getDataFundacao().getYear();
 
-        setValorMensal(10*(10+cliente.getQtdFuncionarios()/10.0)*(1+1.0/(qtdVeiculosSegurados+2))*(1+1.0/(AnosPosFundacao+2))*(2 + qtdSinistrosCliente/10.0)*(5 * qtdSinistroCondutores/10.0));
+        setValorMensal(10*(10+cliente.getQtdFuncionarios()/10.0)*(1+1.0/(qtdVeiculosSegurados+2))*(1+1.0/(AnosPosFundacao+2))*(2 + qtdSinistrosCliente/10.0)*(5 + qtdSinistroCondutores/10.0));
     }
 
+    public String toString(){
+        return String.format("Nome: %s", cliente.getNome());
+    }
 
+    public String getClientePJ(){
+        return "a";
+    }
 
 }

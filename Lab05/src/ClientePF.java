@@ -52,6 +52,12 @@ public class ClientePF extends Cliente{
         listaVeiculos.add(new Veiculo(placa, marca, modelo, ano));
 
     }
+    public void listarVeiculos(){
+        for(int i=0;i< listaVeiculos.size();i++){
+            System.out.printf("Veículo %d -> Placa: %s, Marca: %s, Modelo: %s\n",i+1, listaVeiculos.get(i).getPlaca(), listaVeiculos.get(i).getMarca(), listaVeiculos.get(i).getMarca());
+        }
+
+    }
 
     public String toString(){
         return String.format("Nome: %s, Endereço: %s, Educação: %s, Email: %s, Cpf: %s", getNome(), getEndereco(), getEducacao(), getEmail(), getCpf());

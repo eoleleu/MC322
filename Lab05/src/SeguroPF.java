@@ -59,9 +59,12 @@ public class SeguroPF extends Seguro {
 
 
 
+
+
     public void calculaValor(int qtdVeiculosSegurados, int qtdSinistrosCliente,int qtdSinistroCondutores){
 
         int idade =  LocalDate.now().getYear() - cliente.getDataNascimento().getYear();
+
         double fator;
         if(idade <30){
             fator = 1.25;
@@ -71,8 +74,20 @@ public class SeguroPF extends Seguro {
             fator = 1.5;
         }
 
-        setValorMensal(10*fator*(1+1/(cliente.listaVeiculos.size()+2.0))*(2 + listaSinistros.size()/10.0)*(5 * qtdSinistroCondutores/10.0));
 
+        setValorMensal(10.0*fator*(1.0+1.0/(cliente.listaVeiculos.size()+2.0))*(2.0 + listaSinistros.size()/10.0)*(5.0 + qtdSinistroCondutores/10.0));
+
+    }
+
+    public String toString(){
+        return String.format("Nome: %s", cliente.getNome());
+    }
+
+    public String getNomeClientePF(){
+        return cliente.getNome();
+    }
+    public String getPlacaVeiculo(){
+        return veiculo.getPlaca();
     }
 
 

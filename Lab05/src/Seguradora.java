@@ -211,17 +211,23 @@ public class Seguradora {
             if(listaSeguros.get(i) instanceof SeguroPF){
                 int qtdVeiculosSegurados=0;
                 for(int j=0;j<listaSeguros.size();j++){
-                    if(((SeguroPF) listaSeguros.get(j)).getVeiculo().getPlaca().equals(((SeguroPF) listaSeguros.get(i)).getVeiculo().getPlaca())){
-                        qtdVeiculosSegurados+=1;
+                    if(listaSeguros.get(j) instanceof SeguroPF){
+
+                        if(((SeguroPF) listaSeguros.get(j)).getVeiculo().getPlaca().equals(((SeguroPF) listaSeguros.get(i)).getVeiculo().getPlaca())){
+                            qtdVeiculosSegurados+=1;
+                        }
                     }
                 }
 
                 int qtdSinistrosCliente=0;
                 for(int j=0;j<listaSeguros.size();j++){
-                    if(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf().equals(((SeguroPF) listaSeguros.get(i)).getCliente().getCpf())){
-                        for(int k=0;k<listaSeguros.get(j).listaSinistros.size();k++)
-                            if(listaSeguros.get(j).listaSinistros.get(k).getCondutor().getCpf().equals(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf()))
-                                qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                    if(listaSeguros.get(j) instanceof  SeguroPF){
+
+                        if(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf().equals(((SeguroPF) listaSeguros.get(i)).getCliente().getCpf())){
+                            for(int k=0;k<listaSeguros.get(j).listaSinistros.size();k++)
+                                if(listaSeguros.get(j).listaSinistros.get(k).getCondutor().getCpf().equals(((SeguroPF) listaSeguros.get(j)).getCliente().getCpf()))
+                                    qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                        }
                     }
                 }
 
@@ -243,15 +249,21 @@ public class Seguradora {
 
                 int qtdSinistrosCliente=0;
                 for(int j=0;j<listaSeguros.size();j++){
-                    if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
-                        qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                    if(listaSeguros.get(j) instanceof SeguroPJ){
+
+                        if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
+                            qtdSinistrosCliente+= listaSeguros.get(i).listaSinistros.size();
+                        }
                     }
                 }
 
                 int qtdVeiculosSegurados=0;
                 for(int j=0;j<listaSeguros.size();j++){
-                    if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
-                        qtdVeiculosSegurados+=((SeguroPJ) listaSeguros.get(j)).getFrota().listaVeiculos.size();
+                    if(listaSeguros.get(j) instanceof SeguroPJ){
+
+                        if(((SeguroPJ) listaSeguros.get(j)).getCliente().getCnpj().equals(((SeguroPJ) listaSeguros.get(i)).getCliente().getCnpj())){
+                            qtdVeiculosSegurados+=((SeguroPJ) listaSeguros.get(j)).getFrota().listaVeiculos.size();
+                        }
                     }
                 }
 

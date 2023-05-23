@@ -35,6 +35,12 @@ public class Frota {
         return code;
     }
 
+    public void listarVeiculosDaFrota(){
+        for(int i=0;i<listaVeiculos.size();i++){
+            System.out.println(listaVeiculos.get(i));
+        }
+    }
+
 
 
 
