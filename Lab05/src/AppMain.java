@@ -604,9 +604,46 @@ public class AppMain {
                         //convert String to LocalDate
                         LocalDate data_fim = LocalDate.parse(date, formatter);
 
-                        ListaSeguradoras.get(seg_s-1).gerarSeguro(data_inicio, data_fim,ListaSeguradoras.get(seg_s-1), ((ClientePF)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaVeiculos.get(vei_s-1), ((ClientePF)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)) );
+                        ListaSeguradoras.get(seg_s-1).gerarSeguro(data_inicio, data_fim,ListaSeguradoras.get(seg_s-1),
+                                ((ClientePF)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaVeiculos.get(vei_s-1), ((ClientePF)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)) );
                         System.out.println("Seguro feito!");
                     }
+
+                } else if(ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1) instanceof ClientePJ){
+                    if(ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1) instanceof ClientePJ){
+                        for(int i=0;i<((ClientePJ)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaFrota.size();i++){
+                            System.out.printf("Frota %d:\n", i+1);
+                            ((ClientePJ)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaFrota.get(i).listarVeiculosDaFrota();
+                        }
+                    } else {
+                        System.out.println("Este cliente não é uma pessoa física!\n");
+                    }
+
+                    System.out.printf("Para qual frota você deseja fazer o seguro?\n");
+
+                    int  frota_s= entrada_s.nextInt();
+
+                    if(frota_s > ((ClientePJ)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaFrota.size()){
+                        System.out.println("Essa frota não existe, tente novamente.");
+                    } else {
+                        System.out.println("Data da início:");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                        String date = entrada.next();
+                        //convert String to LocalDate
+                        LocalDate data_inicio = LocalDate.parse(date, formatter);
+
+                        System.out.println("Data do fim:");
+                        date = entrada.next();
+                        //convert String to LocalDate
+                        LocalDate data_fim = LocalDate.parse(date, formatter);
+
+
+                        ListaSeguradoras.get(seg_s-1).gerarSeguro(data_inicio, data_fim,ListaSeguradoras.get(seg_s-1),
+                                ((ClientePJ)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)).listaFrota.get(frota_s-1), ((ClientePJ)ListaSeguradoras.get(seg_s-1).listaClientes.get(cliente_s-1)) );
+                        System.out.println("Seguro feito!");
+
+                    }
+
 
                 }
             } else if(menu_p == 4){
