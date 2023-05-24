@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +69,11 @@ public class Condutor {
         listaSinistros.add(new Sinistro(data,endereco, condutor, seguro));
         seguro.listaSinistros.add(new Sinistro(data, endereco, condutor, seguro));
         return true;
+    }
+
+    public String toString(){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String data = dataNascimento.format(dateTimeFormatter);
+        return String.format("Nome: %s Cpf: %s Data de Nascimento: %s", nome, cpf, data);
     }
 }

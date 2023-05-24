@@ -53,7 +53,7 @@ public class SeguroPF extends Seguro {
 
     public boolean gerarSinistro(LocalDate data, String endereco, Condutor condutor, Seguro seguro){
         listaSinistros.add(new Sinistro(data,endereco, condutor, seguro));
-        condutor.gerarSinistro(data, endereco, condutor, seguro);
+        condutor.listaSinistros.add(new Sinistro(data, endereco, condutor, seguro));
         return true;
     }
 
@@ -83,12 +83,6 @@ public class SeguroPF extends Seguro {
         return String.format("Nome: %s", cliente.getNome());
     }
 
-    public String getNomeClientePF(){
-        return cliente.getNome();
-    }
-    public String getPlacaVeiculo(){
-        return veiculo.getPlaca();
-    }
 
 
 }

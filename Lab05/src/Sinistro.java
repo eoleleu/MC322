@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Sinistro {
@@ -56,5 +57,11 @@ public class Sinistro {
 
     public void setSeguro(Seguro seguro) {
         this.seguro = seguro;
+    }
+
+    public String toString(){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataa = data.format(dateTimeFormatter);
+        return String.format("(%d) Data: %s, Endereço: %s, Condutor: %s, Seguro %s", id, dataa, endereco, condutor.getNome(), seguro.getId());
     }
 }
