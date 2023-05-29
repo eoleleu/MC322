@@ -52,6 +52,14 @@ public class ClientePF extends Cliente{
         listaVeiculos.add(new Veiculo(placa, marca, modelo, ano));
 
     }
+    public void removerVeiculo(String placa){
+        for(int i=0;i<listaVeiculos.size();i++){
+            if(listaVeiculos.get(i).getPlaca().equals(placa)){
+                listaVeiculos.remove(i);
+                break;
+            }
+        }
+    }
     public void listarVeiculos(){
         for(int i=0;i< listaVeiculos.size();i++){
             System.out.printf("Veículo %d -> Placa: %s, Marca: %s, Modelo: %s\n",i+1, listaVeiculos.get(i).getPlaca(), listaVeiculos.get(i).getMarca(), listaVeiculos.get(i).getMarca());

@@ -298,5 +298,9 @@ public class Seguradora {
         return receita;
     }
 
+    public String toString(){
+        return String.format("Nome: %s, Telefone: %s, Email: %s, Endereço: %s, CNPJ: %s", nome, telefone, email, endereco, cnpj);
+    }
+
 
 }

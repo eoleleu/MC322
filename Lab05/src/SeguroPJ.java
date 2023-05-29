@@ -69,8 +69,4 @@ public class SeguroPJ extends Seguro{
         return String.format("Nome: %s", cliente.getNome());
     }
 
-    public String getClientePJ(){
-        return "a";
-    }
-
 }

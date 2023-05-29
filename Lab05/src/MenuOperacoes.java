@@ -1,11 +1,11 @@
 public enum MenuOperacoes {
     CADASTRAR(1),
     LISTAR(2),
-    EXCLUIR(3),
-    GERAR_SINISTRO(4),
-    TRANSFERIR_SEGURO(5),
-    CALCULAR_RECEITA_SEGURADORA(6),
-    SAIR(0);
+    GERAR_SEGURO(3),
+    EXCLUIR(4),
+    GERAR_SINISTRO(5),
+    ATUALIZAR_FROTA(6),
+    CALCULAR_RECEITA_SEGURADORA(7);
 
     public final int operacao;
 

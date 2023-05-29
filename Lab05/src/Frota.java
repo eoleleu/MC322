@@ -41,6 +41,10 @@ public class Frota {
         }
     }
 
+    public String toString(){
+        return String.format("Code: %d\n", code);
+    }
+
 
 
 

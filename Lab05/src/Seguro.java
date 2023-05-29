@@ -67,9 +67,6 @@ public abstract class Seguro {
     public void calculaValor(int qtdVeiculosSegurados, int qtdSinistrosCliente, int qtdSinistroCondutores) {
     }
 
-    public String getClientePF(){
-        return "a";
-    }
 
 
 

@@ -80,7 +80,7 @@ public class SeguroPF extends Seguro {
     }
 
     public String toString(){
-        return String.format("Nome: %s", cliente.getNome());
+        return String.format("Nome: %s Veiculo: %s %s %s", cliente.getNome(), veiculo.getPlaca(), veiculo.getMarca(), veiculo.getModelo());
     }
 
 

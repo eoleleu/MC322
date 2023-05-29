@@ -42,6 +42,20 @@ public class ClientePJ extends Cliente{
         this.qtdFuncionarios = qtdFuncionarios;
     }
 
+    public void getVeiculosPorFrota(int indice_frota){
+        for(int i=0;i<listaFrota.get(indice_frota).listaVeiculos.size();i++){
+            System.out.println(listaFrota.get(indice_frota).listaVeiculos);
+        }
+    }
+
+    public void atualizarFrota(Veiculo veiculo, int ind_frota, int comando){
+        if(comando ==1){
+            listaFrota.get(ind_frota).addVeiculo(veiculo.getPlaca(), veiculo.getMarca(), veiculo.getModelo(), veiculo.getAnoFabricacao());
+        } else if(comando ==2){
+            listaFrota.get(ind_frota).removeVeiculo(veiculo);
+        }
+    }
+
     public String toString(){
 
         return String.format("Nome: %s, Endereço: %s, Telefone: %s, Email: %s, CNPJ: %s, Quantidade de Funcionários: %d", getNome(), getEndereco(), getTelefone(), getEmail(), getCnpj(), getQtdFuncionarios());

@@ -8,34 +8,28 @@ import java.util.Scanner;
 public class AppMain {
     public static void main(String[] args) {
 
-        //Lista do que tenho que fazer
-        // CADASTRAR CONDUTORES
-        // LISTAR CONDUTORES DO SEGURO
-        // EXCLUIR CONDUTOR
-        // GERAR SINISTRO
-
-
 
         Scanner entrada = new Scanner(System.in);
         entrada.useLocale(Locale.ENGLISH);
 
         List<Seguradora> ListaSeguradoras = new ArrayList<>();
 
+        //Criando uma seguradora
         Seguradora s1 = new Seguradora("Porto Seguro", "aodasda", "l213437@gmail.com", "ofaajdasod", "46.068.425/0001-33");
         ListaSeguradoras.add(s1);
-
+        //Criando outra seguradora
         Seguradora s2 = new Seguradora("SulAmerica", "aodasda", "l213437@gmail.com", "ofaajdasod", "46.068.425/0001-33");
         ListaSeguradoras.add(s2);
-
+        //Cadastrando clientes na seguradora
         s1.cadastrarCliente("Leandro", "34557063", "M","Ensino superior","Rua condessa do pinhal","l213437@dac.unicamp.br","018.372.696-02", LocalDate.of(2002, 7, 22));
         s1.cadastrarCliente("Unicamp", "000000000","Av.1","@unicamp.br", "46.068.425/0001-33",LocalDate.of(1966, 10, 5), 8000);
         s1.cadastrarCliente("Gustavo", "11946336399", "M","Ensino superior","Rua condessa do pinhal","g123456@dac.unicamp.br","006.419.986-00", LocalDate.of(1999, 7, 22));
         s1.cadastrarCliente("Bandejao", "000000000","Av.2","bandeco.com.br", "46.068.425/0001-33",LocalDate.of(1966, 10, 5), 200);
-
+        //Cadastrando veículos em clientes da seguradora
         ((ClientePF)s1.listaClientes.get(0)).cadastrarVeiculo("HGE-9443", "Volks", "Fox", 2011);
         ((ClientePF)s1.listaClientes.get(2)).cadastrarVeiculo("MKT-8450", "Mercedes", "GLE", 2023);
 
-
+        //Criando uma frota e cadastrando em um cliente PF
         Frota f1 = new Frota();
         f1.addVeiculo("BBB-1111", "BMW", "Palio", 2021);
         f1.addVeiculo("CCC-2222", "Porsche", "Uno", 2001);
@@ -43,8 +37,7 @@ public class AppMain {
         f1.addVeiculo("EEE-4444", "Kombi", "trend", 2010);
         ((ClientePJ)s1.listaClientes.get(1)).cadastrarFrota(f1);
 
-
-
+        //Criando uma frota e cadastrando em um cliente PJ
         Frota f2 = new Frota();
         f2.addVeiculo("GSA-2727", "BMW", "Palio", 2021);
         f2.addVeiculo("GEF-6787", "Porsche", "Uno", 2001);
@@ -52,34 +45,27 @@ public class AppMain {
         f2.addVeiculo("VSD-2457", "Kombi", "trend", 2010);
         ((ClientePJ)s1.listaClientes.get(3)).cadastrarFrota(f2);
 
-//        System.out.println(s1.listarCliente("PF"));
-//        System.out.println(s1.listarCliente("PJ"));
-
-        //LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, int valorMensal, Frota frota, ClientePJ cliente
-        //LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, Veiculo veiculo, ClientePF cliente
+        //Criando seguros
         s1.gerarSeguro(LocalDate.of(2021, 6, 20), LocalDate.of(2026, 9, 11), s1, ((ClientePF) s1.listaClientes.get(0)).listaVeiculos.get(0), (ClientePF) s1.listaClientes.get(0));
         s1.gerarSeguro(LocalDate.of(2009, 7, 14), LocalDate.of(2030, 1, 7), s1, ((ClientePJ)s1.listaClientes.get(3)).listaFrota.get(0), (ClientePJ)s1.listaClientes.get(3));
-
         s1.gerarSeguro(LocalDate.of(2014, 4, 4), LocalDate.of(2026, 9, 11), s1, ((ClientePF) s1.listaClientes.get(0)).listaVeiculos.get(0), (ClientePF) s1.listaClientes.get(0));
-
+        //Autorizando condudores para um seguro
         s1.listaSeguros.get(0).autorizarCondutor(((ClientePF) s1.listaClientes.get(0)).getCpf(), ((ClientePF) s1.listaClientes.get(0)).getNome(), ((ClientePF) s1.listaClientes.get(0)).getTelefone(),
                 ((ClientePF) s1.listaClientes.get(0)).getEndereco(), ((ClientePF) s1.listaClientes.get(0)).getEmail(), ((ClientePF) s1.listaClientes.get(0)).getDataNascimento());
 
-
+        //Gerando sinistros
         s1.listaSeguros.get(0).gerarSinistro(LocalDate.of(2022, 3, 1), "daojda", s1.listaSeguros.get(0).listaCondutores.get(0), s1.listaSeguros.get(0));
         s1.listaSeguros.get(0).gerarSinistro(LocalDate.of(2018, 8, 23), "fasdfdsafdas", s1.listaSeguros.get(0).listaCondutores.get(0), s1.listaSeguros.get(2));
 
-        System.out.println(s1.calcularReceita());
+        // Mostrando a receita da primeira seguradora
+        System.out.printf("A receita da seguradora %s é R$%.2f\n",s1.getNome(),s1.calcularReceita());
 
-        System.out.println(((SeguroPF)s1.listaSeguros.get(0)).getCliente().getNome());
+//        System.out.println(((SeguroPF)s1.listaSeguros.get(0)).getCliente().getNome());
 
-
-//        s1.listaClientes.get(0).cadastrarVeiculo("HGE-9443", "Volks", "Fox", 2011);
-
-
+        //Menu de Operações
         int menu_p = -1;
         while (menu_p != 0) {
-            System.out.println("1 - Cadastros\n2 - Listar\n3 - Gerar Seguro\n4 - Excluir\n5 - Gerar Sinistro\n6 - Calcular Receita Seguradora\n0 - Sair");
+            System.out.println("1 - Cadastros\n2 - Listar\n3 - Gerar Seguro\n4 - Excluir\n5 - Gerar Sinistro\n6 - Atualizar Frota\n7 - Calcular Receita Seguradora\n0 - Sair");
             menu_p = entrada.nextInt();
 
             if(menu_p == MenuOperacoes.CADASTRAR.getOperacao()){
@@ -560,7 +546,7 @@ public class AppMain {
 
 
                 }
-            } else if(menu_p == 3){
+            } else if(menu_p == MenuOperacoes.GERAR_SEGURO.getOperacao()){
                 for(int i=0;i<ListaSeguradoras.size();i++){
                     System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
                     for(int j=0;j<ListaSeguradoras.get(i).listaClientes.size();j++){
@@ -646,7 +632,7 @@ public class AppMain {
 
 
                 }
-            } else if(menu_p == 4){
+            } else if(menu_p == MenuOperacoes.EXCLUIR.getOperacao()){
 
                 double menu_excluir=-1;
                 while(menu_excluir!=0){
@@ -683,6 +669,7 @@ public class AppMain {
 
                                     if(((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(i)).getCliente().getCpf().equals(((ClientePF)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).getCpf())){
                                         ListaSeguradoras.get(seg_e-1).listaSeguros.remove(i);
+                                        i--;
                                     }
 
 
@@ -690,6 +677,7 @@ public class AppMain {
 
                                     if(((SeguroPJ)ListaSeguradoras.get(seg_e-1).listaSeguros.get(i)).getCliente().getCnpj().equals(((ClientePJ)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).getCnpj())){
                                         ListaSeguradoras.get(seg_e-1).listaSeguros.remove(i);
+                                        i--;
                                     }
 
                             }
@@ -726,17 +714,23 @@ public class AppMain {
 
                                 int veiculo_e = entrada_e.nextInt();
 
+                                System.out.println(ListaSeguradoras.get(seg_e-1).listaSeguros.size());
+
                                 for(int i=0;i<ListaSeguradoras.get(seg_e-1).listaSeguros.size();i++){
                                     if(ListaSeguradoras.get(seg_e-1).listaSeguros.get(i) instanceof SeguroPF){
 
-                                        if(((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(veiculo_e-1)).getVeiculo().getPlaca().equals((((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(i)).getVeiculo().getPlaca()))){
+                                        if(((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(i)).getVeiculo().getPlaca().equals(((ClientePF)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaVeiculos.get(veiculo_e-1).getPlaca())){
+
                                             ListaSeguradoras.get(seg_e-1).listaSeguros.remove(i);
+                                            i--;
+
                                         }
 
 
                                     }
                                 }
 
+                                ((ClientePF)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaVeiculos.remove(veiculo_e-1);
 
                             } else {
 
@@ -745,15 +739,6 @@ public class AppMain {
                         } else {
                             System.out.println("Este cliente não é uma pessoa física!\n");
                         }
-
-//                        for(int i=0;i<(((ClientePF)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaVeiculos.size());i++){
-//                            System.out.printf("%d - " + ((ClientePF)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaVeiculos.get(i), i+1);
-//                        }
-//                        if(ListaSeguradoras.get(seg_e).listaClientes.get(cliente_e-1) instanceof ClientePF){
-//
-//                        } else {
-//                            System.out.println("Este cliente não é um");
-//                        }
 
 
                     } else if(menu_excluir == 4.3){
@@ -791,6 +776,7 @@ public class AppMain {
 
                                         if(((SeguroPJ)ListaSeguradoras.get(seg_e-1).listaSeguros.get(j)).getFrota().getCode()==((ClientePJ)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaFrota.get(frota_e-1).getCode()){
                                             ListaSeguradoras.get(seg_e-1).listaSeguros.remove(j);
+                                            j--;
                                         }
 
                                     }
@@ -802,39 +788,51 @@ public class AppMain {
                             System.out.println("Este cliente não é uma pessoa física!\n");
                         }
 
-//                        if(ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1) instanceof ClientePJ){
-//
-//                            if(((ClientePJ)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaFrota.size()!=0){
-//
-//                                for(int k=0;k<((ClientePJ)ListaSeguradoras.get(seg_e-1).listaClientes.get(cliente_e-1)).listaFrota.size();k++){
-//                                    System.out.println();
-//                                }
-//                                ((ClientePJ) ListaSeguradoras.get(seg_e - 1).listaClientes.get(cliente_e - 1)).listarVeiculos();
-//
-//                                System.out.println("Qual veículo gostaria de excluir?");
-//
-//                                int veiculo_e = entrada_e.nextInt();
-//
-//                                for(int i=0;i<ListaSeguradoras.get(seg_e-1).listaSeguros.size();i++){
-//                                    if(ListaSeguradoras.get(seg_e-1).listaSeguros.get(i) instanceof SeguroPF){
-//
-//                                        if(((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(veiculo_e-1)).getVeiculo().getPlaca().equals((((SeguroPF)ListaSeguradoras.get(seg_e-1).listaSeguros.get(i)).getVeiculo().getPlaca()))){
-//                                            ListaSeguradoras.get(seg_e-1).listaSeguros.remove(i);
-//                                        }
-//
-//
-//                                    }
-//                                }
+
+                    } else if(menu_excluir==4.4){
+                        for(int i=0;i<ListaSeguradoras.size();i++){
+                            System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
+                            for(int j=0;j<ListaSeguradoras.get(i).listaSeguros.size();j++){
+                                if(ListaSeguradoras.get(i).listaSeguros.get(j) instanceof SeguroPF){
+                                    System.out.printf("%d - (%d) Cliente: %s Veículo: %s\n",j+1, ListaSeguradoras.get(i).listaSeguros.get(j).getId() ,((SeguroPF)ListaSeguradoras.get(i).listaSeguros.get(j)).getCliente().getNome(), ((SeguroPF)ListaSeguradoras.get(i).listaSeguros.get(j)).getVeiculo().getPlaca());
+                                } else if(ListaSeguradoras.get(i).listaSeguros.get(j) instanceof SeguroPJ) {
+                                    System.out.printf("%d - (%d) Cliente: %s\n", j+1, ListaSeguradoras.get(i).listaSeguros.get(j).getId(),((SeguroPJ)ListaSeguradoras.get(i).listaSeguros.get(j)).getCliente().getNome() );
+
+                                }
+                            }
+                        }
+
+                        System.out.println("Em qual seguradora deseja excluir um sinistro?");
+                        Scanner entrada_s = new Scanner(System.in);
+                        int  seg_s= entrada_s.nextInt();
+
+                        if(ListaSeguradoras.get(seg_s-1).listaSeguros.size()>0){
+                            System.out.printf("Para qual seguro da seguradora %s você deseja excluir um sinistro?\n", ListaSeguradoras.get(seg_s-1).getNome());
+                            int seguro_s = entrada_s.nextInt();
+
+                            for(int j=0;j<ListaSeguradoras.get(seg_s-1).listaSeguros.get(seguro_s-1).listaSinistros.size();j++){
+                                System.out.printf("%d - ", j+1);
+                                System.out.println(ListaSeguradoras.get(seg_s-1).listaSeguros.get(seguro_s-1).listaSinistros.get(j).toString());
+                            }
+
+                            System.out.printf("Para qual sinistro deseja excluir\n");
+                            int sinistro_s = entrada_s.nextInt();
+
+                            ListaSeguradoras.get(seg_s-1).listaSeguros.get(seguro_s-1).listaSinistros.remove(sinistro_s-1);
+
+                        } else {
+                            System.out.println("Essa seguradora não possui nenhum seguro cadastrado!");
+                        }
 
 
-                    } else if(menu_excluir == 0){
+                    }else if(menu_excluir == 0){
                         System.out.println("Saindo do menu excluir...");
                     }
                 }
 
 
 
-            } else if(menu_p == 5){
+            } else if(menu_p == MenuOperacoes.GERAR_SINISTRO.getOperacao()){
                 for(int i=0;i<ListaSeguradoras.size();i++){
                     System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
                     for(int j=0;j<ListaSeguradoras.get(i).listaSeguros.size();j++){
@@ -884,7 +882,74 @@ public class AppMain {
                     System.out.println("Essa seguradora não possui nenhum seguro cadastrado!");
                 }
 
-            } else if(menu_p == 6){
+            } else if(menu_p == MenuOperacoes.ATUALIZAR_FROTA.getOperacao()){
+                for(int i=0;i<ListaSeguradoras.size();i++){
+                    System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
+                    for(int j=0;j<ListaSeguradoras.get(i).listaClientes.size();j++){
+                        String pf_or_pj;
+                        if(ListaSeguradoras.get(i).listaClientes.get(j) instanceof ClientePF){
+                            pf_or_pj = "(Pessoa física)";
+                        } else {
+                            pf_or_pj = "(Pessoa jurídica)";
+                        }
+                        System.out.printf("%d - %s %s\n", j+1, ListaSeguradoras.get(i).listaClientes.get(j).getNome(), pf_or_pj);
+
+                    }
+                }
+
+                System.out.println("Em qual SEGURADORA gostaria de atualizar uma frota?");
+                Scanner entrada_f = new Scanner(System.in);
+                int seg_f = entrada_f.nextInt();
+
+                System.out.printf("Em qual cliente da seguradora %s você deseja atualizar uma frota? (Apenas cliente PJ)\n", ListaSeguradoras.get(seg_f-1).getNome());
+
+                int cliente_f = entrada_f.nextInt();
+
+                if(ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1) instanceof ClientePJ){
+                    System.out.println("Você deseja:\n1 - adicionar um veículo\n2 - remover um veículo");
+                    int comando = entrada_f.nextInt();
+
+                    for(int i=0;i<((ClientePJ)ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1)).listaFrota.size();i++){
+                        System.out.printf("Frota %d:\n", i+1);
+                        ((ClientePJ)ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1)).listaFrota.get(i).listarVeiculosDaFrota();
+                    }
+
+                    if(comando == 1){
+                        System.out.println("Em qual frota você deseja adicionar um veículo?");
+                        int frota = entrada_f.nextInt();
+
+                        System.out.println("Placa:");
+                        String placa = entrada_f.next();
+
+                        System.out.println("Marca:");
+                        String marca = entrada_f.next();
+
+                        System.out.println("Modelo:");
+                        String modelo = entrada_f.next();
+
+                        System.out.println("Ano de fabricação:");
+                        int ano = entrada_f.nextInt();
+
+                        ((ClientePJ)ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1)).atualizarFrota(new Veiculo(placa, marca, modelo, ano), frota-1, comando);
+
+
+                    } else if(comando == 2){
+                        System.out.println("Em qual frota você deseja remover um veículo?");
+                        int frota = entrada_f.nextInt();
+
+                        System.out.println("Qual veículo deseja excluir?");
+                        int veiculo = entrada_f.nextInt();
+
+
+                        ((ClientePJ)ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1)).atualizarFrota((((ClientePJ) ListaSeguradoras.get(seg_f-1).listaClientes.get(cliente_f-1)).listaFrota.get(frota-1).listaVeiculos.get(veiculo-1)), frota-1, comando);
+                    }
+
+
+                } else {
+                    System.out.println("Este cliente não é uma pessoa jurídica!\n");
+                }
+
+            }else if(menu_p == MenuOperacoes.CALCULAR_RECEITA_SEGURADORA.getOperacao()){
                 for(int i=0;i<ListaSeguradoras.size();i++){
                     System.out.printf("%s(%d)\n", ListaSeguradoras.get(i).getNome(), i+1);
                 }
