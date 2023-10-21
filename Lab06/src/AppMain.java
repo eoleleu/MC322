@@ -94,15 +94,12 @@ public class AppMain {
 
 
 //        try {
-//            BufferedWriter brr = new BufferedWriter(new FileWriter("Lab06/clientesTEST.csv", true));
+//            BufferedWriter brr = new BufferedWriter(new FileWriter("Lab06/clientesTEST4.csv"));
 //            PrintWriter out = new PrintWriter(brr);
-//            brr.write("azedoo");
-//            brr.newLine();
-//            out.write("21488869839 ,João da Silva ,(11) 1234-5678 ,Rua das Flores ,joao.silva@example.com ,Masculino ,Superior ,1980-05-10 ,ABC-1234");
-//            out.write("21488869839 ,João da Silva ,(11) 1234-5678 ,Rua das Flores ,joao.silva@example.com ,Masculino ,Superior ,1980-05-10 ,ABC-1234");
-//            out.close();
-//            brr.close();
 //
+//            out.append("21488869839 ,João da Silva ,(11) 1234-5678 ,Rua das Flores ,joao.silva@example.com ,Masculino ,Superior ,1980-05-10 ,ABC-1234");
+//            out.newLine();
+//            out.close();
 //
 //        } catch (IOException e) {
 //            e.printStackTrace();
@@ -111,8 +108,10 @@ public class AppMain {
 //        try {
 //            // O parametro é que indica se deve sobrescrever ou continua no
 //            // arquivo.
-//            FileWriter fw = new FileWriter("Lab06/clientesTEST.csv", true);
+//            FileWriter fw = new FileWriter("Lab06/clientesPF.csv", true);
 //            BufferedWriter conexao = new BufferedWriter(fw);
+//
+//
 //            conexao.write("vamos ver");
 //            conexao.append(" carai");
 //            conexao.newLine();
