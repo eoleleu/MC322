@@ -1,2 +1,2 @@
-# mc322-turmaC
+# MC322
 Programação Orientada a Objetos
